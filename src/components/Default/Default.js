@@ -3,10 +3,10 @@ import './Default.css';
 
 const Default = () => {
   return (
-    <div className='container'>
+    <div className='container mt-5 mb-5'>
       <div className="default">
-        <p>404</p>
-        <p>Please write the Current Route</p>
+        <h1>404</h1>
+        <h2>Please write the Current Route</h2>
       </div>
     </div>
   );

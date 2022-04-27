@@ -8,20 +8,19 @@ const Header = () => {
     <div>
       <Navbar collapseOnSelect fixed="top" expand="lg" bg="light" variant="dark">
         <Container>
-          <Navbar.Brand href="#home">
+          <Navbar.Brand href="/">
             <img className='logo-img' src={logo} alt="" />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="#features"><span className='navbarStyle right'>Home</span></Nav.Link>
-              <Nav.Link href="#pricing"><span className='navbarStyle'>Doantion</span></Nav.Link>
-              <Nav.Link href="#pricing"><span className='navbarStyle'>Events</span></Nav.Link>
+              <Nav.Link href="/home"><span className='navbarStyle right'>Home</span></Nav.Link>
+              <Nav.Link href="#pricing"><span className='navbarStyle'>Add</span></Nav.Link>
               <Nav.Link href="#pricing"><span className='navbarStyle'>Blog</span></Nav.Link>
             </Nav>
             <Nav>
-              <Nav.Link href="#deets"><button className='btn btn-danger'>Login</button></Nav.Link>
-              <Nav.Link eventKey={2} href="#memes">
+              <Nav.Link href="/login"><button className='btn btn-danger'>Login</button></Nav.Link>
+              <Nav.Link eventKey={2} href="">
                 <button className='btn btn-danger'>Sign Out</button>
               </Nav.Link>
             </Nav>
