@@ -1,0 +1,10 @@
+.galllery-img{
+  overflow: hidden;
+  cursor: pointer;
+}
+.galllery-img img{
+  transition: 0.5s;
+}
+.galllery-img img:hover{
+  transform: scale(1.1);
+}

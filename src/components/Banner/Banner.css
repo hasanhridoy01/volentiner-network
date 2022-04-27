@@ -1,0 +1,6 @@
+.banner img{
+  height: 650px;
+  width: 100%;
+  background-position: center;
+  object-fit: cover;
+}
