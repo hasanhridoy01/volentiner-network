@@ -1,20 +1,54 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import './Registration.css';
+import auth from '../../firebase.init';
+import { toast } from 'react-toastify';
 
 const Registration = () => {
   const nameRef = useRef('');
   const emailRef = useRef('');
   const passwordRef = useRef('');
+  const navigate = useNavigate();
+  const [agree, setAgree] = useState(false);
+  let errorElement;
 
+  //create a new user form Registration
+  const [
+    createUserWithEmailAndPassword,
+    user,
+    loading,
+    error,
+  ] = useCreateUserWithEmailAndPassword(auth, {sendEmailVerification: true});
+
+   //user profile update
+   const [updateProfile, updating, updatingError] = useUpdateProfile(auth);
+
+  //if email send some error will show 
+  if(error || updatingError){
+    errorElement = <p style={{color: 'red'}}>{error?.message}</p>;
+  }
+
+  //user console.log to confirm registration;
+  if(user){
+    console.log(user);
+  }
+   
   //from submit
-  const handleRegister = e => {
+  const handleRegister = async(e) => {
     e.preventDefault();
-    const name = nameRef.current.value;
+    const displayName = nameRef.current.value;
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    alert(password);
+    if(password.length < 6){
+      toast('please at list 6 character password');
+    }else{
+      await createUserWithEmailAndPassword(email, password);
+      await updateProfile({displayName});
+      toast('Updated profile');
+      navigate('/');
+    }
   }
   return (
     <div className='container mt-5 mb-5'>
@@ -36,12 +70,13 @@ const Registration = () => {
                   </Form.Group>
 
                   <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check  name='terms' id='terms' type="checkbox" label="Accept Terms and Condition" />
+                    <Form.Check onClick={() => setAgree(!agree)}  name='terms' id='terms' type="checkbox" label="Accept Terms and Condition" />
                   </Form.Group>
 
-                  <p>Already have an account? <Link to='/login' className='loginbtn'>Login</Link></p>
-                  <button className='btn btn-primary'>Registration</button>
+                  {errorElement}
 
+                  <p>Already have an account? <Link to='/login' className='loginbtn'>Login</Link></p>
+                  <button disabled={!agree} className='btn btn-primary'>Registration</button>
           </Form>
       </div>
     </div>
